@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRC ERROR detection and convertion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="cyber-glow-bg"></div>
+
+<div class="app-container">
+    <!-- Login Section -->
+    <div id="login-section" class="panel-card login-panel">
+        <div class="panel-header">
+            <span class="status-dot"></span>
+            <span class="badge-text">SECURE GATEWAY v2.6</span>
+        </div>
+        <h2>⚡ CyberCRC Access</h2>
+        <p class="panel-desc">CRC convert.</p>
+        
+        <div class="input-group">
+            <label for="username">Operator ID</label>
+            <input type="text" id="username" placeholder="e.g., admin">
+        </div>
+        <div class="input-group">
+            <label for="password">Access Token</label>
+            <input type="password" id="password" placeholder="e.g., ••••••••">
+        </div>
+        <button class="cyber-btn btn-glow" onclick="login()">Initialize Session</button>
+    </div>
+
+    <!-- Simulator Section -->
+    <div id="simulator-section" class="panel-card simulator-panel hidden">
+        <div class="top-nav">
+            <div class="nav-title">
+                <span class="status-dot active"></span>
+                <h2>CRC  error detection Console</h2>
+            </div>
+            <button class="cyber-btn-outline" onclick="logout()">Terminate Session</button>
+        </div>
+        
+        <div class="dashboard-grid">
+            <!-- Left Column: Transmission Setup -->
+            <div class="grid-col">
+                <div class="sub-card">
+                    <h3>01. Frame Configuration</h3>
+                    <div class="input-group">
+                        <label for="dataBits">Data Bits (Binary):</label>
+                        <input type="text" id="dataBits" value="110101">
+                    </div>
+                    <div class="input-group">
+                        <label for="genPoly">Generator Polynomial (Binary):</label>
+                        <input type="text" id="genPoly" value="1011">
+                    </div>
+                    <button class="cyber-btn btn-secondary" onclick="generateFrame()">Generate Frame</button>
+                    
+                    <div class="telemetry-readout">
+                        <div class="readout-item">
+                            <span>CRC Remainder:</span>
+                            <strong id="resRemainder" class="text-neon-cyan">-</strong>
+                        </div>
+                        <div class="readout-item">
+                            <span>Transmitted Frame:</span>
+                            <strong id="resTransmitted" class="text-neon-green">-</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Channel & Verification -->
+            <div class="grid-col">
+                <div class="sub-card">
+                    <h3>02. Channel Error Injection</h3>
+                    <div class="input-group">
+                        <label for="receivedFrame">Received Data Stream (Modify bits):</label>
+                        <input type="text" id="receivedFrame">
+                    </div>
+                    <button class="cyber-btn btn-primary" onclick="verifyFrame()">Execute Verification</button>
+
+                    <div id="statusBox" class="alert-box hidden"></div>
+                    
+                    <div class="telemetry-readout diagnostic-box">
+                        <div class="readout-item">
+                            <span>Receiver Remainder:</span>
+                            <strong id="checkRemainder">-</strong>
+                        </div>
+                        <div class="readout-item log-item">
+                            <span>Diagnostic Log:</span>
+                            <span id="errorLog" class="log-text">Standby for telemetry run...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
